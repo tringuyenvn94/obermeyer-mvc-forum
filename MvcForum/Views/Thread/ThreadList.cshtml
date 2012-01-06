@@ -1,0 +1,40 @@
+﻿@model IEnumerable<MvcForum.Models.Thread>
+
+@foreach (var thread in Model) {
+        <div class="ForumItem">
+            <span class="ListTitle">
+                @Html.ActionLink(thread.Title, "Index", "Post",
+                    new { id = thread.ThreadId }, null)
+            </span>
+            @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+            {
+                var stickyString = (thread.IsSticky)? "Unsticky" : "Sticky";
+                <div class="buttons">
+                    <span class="forumButton">
+                    
+                        @Ajax.ActionLink(stickyString, "ToggleSticky", new {id = thread.ThreadId},
+                            new AjaxOptions
+                            {
+                                UpdateTargetId = "threadMain",
+                                HttpMethod = "POST"
+                            }
+                            )
+                    </span>
+                    <span class="forumButton">
+                        @Html.ActionLink("Delete", "Delete", new
+                                {
+                                    threadId = thread.ThreadId,
+                                    forumId = thread.ContainingForum.ForumId
+                                })
+                    </span>
+                </div>
+                }
+            <span class="ThreadStats">
+                <em>Created By:</em>@Html.ActionLink(thread.ThreadStarter, "Index", "Profile", new
+                               {
+                                   userName = thread.ThreadStarter
+                               }, new { @class = "profileLink" })<br />
+                <em>Posts:</em> @thread.Posts.Count
+            </span>
+        </div>
+    }

@@ -1,0 +1,39 @@
+﻿@model MvcForum.Models.UserProfile
+
+@{
+    ViewBag.Title = @Model.UserName;
+}
+
+<h2>@Model.UserName's Profile</h2>
+
+@if(HttpContext.Current.User.Identity.Name == Model.UserName){
+    <div id="editProfile">
+        @Html.ActionLink("Edit Profile", "Edit", new { userName = Model.UserName })
+    </div>
+}
+<table id="profile">
+    <tr id="name">
+        <td class="tableRowHeader">
+            Full Name:
+        </td>
+        <td class="profileInfo">
+            @Model.FullName
+        </td>
+    </tr>
+    <tr id="age">
+        <td class="tableRowHeader">
+            Age:
+        </td>
+        <td class="profileInfo">
+            @Model.Age
+        </td>
+    </tr>
+    <tr id="about">
+        <td class="tableRowHeader">
+            About @Model.UserName:
+        </td>
+        <td class="profileInfo">
+            @Model.About
+        </td>
+    </tr>
+</table>

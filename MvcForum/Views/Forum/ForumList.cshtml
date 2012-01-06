@@ -1,0 +1,62 @@
+﻿@model IEnumerable<MvcForum.Models.Forum>
+@foreach (var forum in Model)
+{
+    <div class="ForumItem">
+        <span class="ListTitle">
+            @Html.ActionLink(forum.Title, "Index", "Thread",
+                    new { id = forum.ForumId }, null) 
+            
+            <span class="ForumDescription">
+                @Html.Encode(forum.Description)
+            </span>           
+        </span>
+        
+        <span class="ThreadStats"><em>Threads:</em>
+            @if (forum.Threads != null)
+            { 
+                @forum.Threads.Count
+            }
+            else
+            {
+                @Html.Encode("0")
+            }
+            <br />
+            <em>Posts:</em>
+            @if (forum.Threads != null)
+            {
+                @forum.Threads.Sum(t => t.Posts.Count)
+            }
+            else
+            { 
+                @Html.Encode("0")
+            }
+        </span>
+        @if (HttpContext.Current.User.IsInRole("Administrator"))
+        {
+            <div class="buttons">
+                <span class="forumButton">
+                    @Ajax.ActionLink("Delete", "Delete", "Forum", new { id = forum.ForumId },
+                        new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            UpdateTargetId = "ForumList",
+                            Confirm = "Are you sure you want to delete the forum \"" +
+                                forum.Title + "\" and all associated threads and posts?"
+                        })
+                </span> 
+
+                <span class="forumButton">
+                    @Html.ActionLink("Edit", "Edit", new { id = forum.ForumId })
+                </span>
+            </div>
+        }
+    </div>
+}
+@if (HttpContext.Current.User.IsInRole("Administrator"))
+{
+    <div class="CreateForum">
+        <span class="ListTitle">
+            @Html.ActionLink("Create New Forum", "Create", "Forum", null, null)
+        </span>
+    </div>
+}

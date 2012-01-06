@@ -1,0 +1,7 @@
+d:\mobermeyer\documents\visual studio 2010\Projects\MvcForum\MvcForum\bin\MvcForum.dll
+d:\mobermeyer\documents\visual studio 2010\Projects\MvcForum\MvcForum\bin\MvcForum.pdb
+d:\mobermeyer\documents\visual studio 2010\Projects\MvcForum\MvcForum\bin\EntityFramework.dll
+d:\mobermeyer\documents\visual studio 2010\Projects\MvcForum\MvcForum\bin\EntityFramework.xml
+d:\mobermeyer\documents\visual studio 2010\Projects\MvcForum\MvcForum\obj\Debug\ResolveAssemblyReference.cache
+d:\mobermeyer\documents\visual studio 2010\Projects\MvcForum\MvcForum\obj\Debug\MvcForum.dll
+d:\mobermeyer\documents\visual studio 2010\Projects\MvcForum\MvcForum\obj\Debug\MvcForum.pdb

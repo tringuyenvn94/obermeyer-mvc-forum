@@ -1,0 +1,18 @@
+﻿@model MvcForum.ViewModel.IPagedViewModel
+
+@foreach (string current in Model.GetPageNavStrings())
+{
+    if (!current.Equals("...") && !current.Equals(Model.PageNumber.ToString()))
+    {
+        @Html.ActionLink(current, "Index", new
+        {
+            id = Model.GetId(),
+            page = @Int32.Parse(current)
+        })
+        @Html.Encode(" ")
+    }
+    else
+    {
+        @Html.Encode(current + " ")
+    }
+}

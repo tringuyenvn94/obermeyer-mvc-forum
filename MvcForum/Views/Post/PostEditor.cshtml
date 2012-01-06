@@ -1,0 +1,30 @@
+﻿@model MvcForum.ViewModel.ThreadViewModel
+<script type="text/javascript">
+
+    function ClearTextBox() {
+        $( '#lastPost #Post_PostContent' ).val( "" );
+    }
+</script>
+@using(Ajax.BeginForm(Model.GetEditModeAction(), "Post",
+            Model.GetActionParameters(), 
+            Model.GetAjaxOptions())){
+
+    
+    <span class="PostContent">        
+        @Html.EditorFor(model => model.Post.PostContent)         
+        @Html.ValidationMessageFor(model => model.Post.PostContent)
+    </span>
+    <div class="postFooter">
+        @{
+          if (Request.IsAuthenticated)
+          {                        
+                    <input type="submit" value="Post" />
+          }
+          else
+          {
+                    <p>
+                        You must login before posting a reply.</p>
+          }
+        }
+    </div>
+}

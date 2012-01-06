@@ -1,0 +1,29 @@
+﻿@model MvcForum.Models.Post
+
+@if (Request.IsAuthenticated)
+{
+    AjaxOptions options = new AjaxOptions
+        {
+            HttpMethod = "POST",
+            UpdateTargetId = "ratePost_" +@Model.PostId
+        };
+    @Ajax.ActionLink("+", "RatePost", new 
+        {
+            id = Model.PostId,
+            rateUp = true
+        }, options
+    )
+    @Html.Encode(Model.PositiveRatings + " | ")
+
+    @Ajax.ActionLink("-", "RatePost", new 
+        {
+            id = Model.PostId,
+            rateUp = false
+        }, options)
+    @Html.Encode(Model.NegativeRatings)
+}
+else
+{
+    @Html.Encode("You must log in to rate posts. +" + Model.PositiveRatings
+        + " | -" + Model.NegativeRatings)
+}

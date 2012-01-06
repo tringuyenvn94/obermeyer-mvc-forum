@@ -1,0 +1,33 @@
+﻿@model MvcForum.ViewModel.ThreadListViewModel
+
+<div id="sticky" class="ThreadList">
+        @Html.Partial("ThreadList", Model.StickyThreads)
+    </div>
+
+    <div class="ThreadList">
+        @Html.Partial("ThreadList", Model.Threads)
+
+        <div class="CreateThread">
+        
+            @{
+           
+                if (Request.IsAuthenticated)
+                {
+                    <span class="ListTitle">
+                        @Html.ActionLink("Create New Thread", "Create", new { forumId = Model.Forum.ForumId })
+                    </span>                            
+                }
+                else
+                {
+                    <span class="ListTitle">
+                        @Html.ActionLink("Log in", "Logon", "Account", null, null) to create a new thread.
+                    </span>    
+                }
+             
+            }
+        
+        </div>
+        <div id="pageNav">
+            @Html.Partial("PageNavigation", Model)
+        </div>
+    </div>

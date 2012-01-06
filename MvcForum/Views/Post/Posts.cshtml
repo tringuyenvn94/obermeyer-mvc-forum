@@ -1,0 +1,79 @@
+﻿@model MvcForum.ViewModel.ThreadViewModel
+
+<div id="posts">
+    @foreach (var item in Model.GetPagePosts())
+    {
+        var postId = "post_" + item.PostId.ToString();        
+        
+            <div class="postHeader">
+                <span>
+                    <em>
+                        @Html.ActionLink(item.Poster, "Index", "Profile", new 
+                           { 
+                               userName = item.Poster
+                           }, new { @class = "profileLink" })
+                    </em> </span><span class="postDate">
+                    @Html.Encode(item.PostDate.ToShortDateString())
+                    @Html.Encode(item.PostDate.ToShortTimeString())
+                </span>
+                @{
+                    
+        if (Model.OwnsPost(item) || HttpContext.Current.User.IsInRole("Administrator") ||
+            HttpContext.Current.User.IsInRole("Moderator"))
+        {
+
+            //Do not allow deleting of first post.
+                        <div class="buttons">
+                        @if (!item.Equals(Model.Thread.Posts[0]))
+                        { 
+                            <span class="forumButton">
+                                @Ajax.ActionLink("Delete", "DeletePost", "Post", new
+                           {
+                               postId = item.PostId,
+                               threadId = Model.Thread.ThreadId
+                           }, new AjaxOptions
+                           {
+                               HttpMethod = "Post",
+                               Confirm = "Are you sure you want to delete this post?",
+                               UpdateTargetId = "posts"
+                           }
+                            )
+                            </span>
+                        }
+                        <span class="forumButton">
+                            @Ajax.ActionLink("Edit", "EditPost", "Post", new
+                       {
+                           postId = item.PostId,
+                           threadId = Model.Thread.ThreadId
+                       }, new AjaxOptions
+                       {
+                           HttpMethod = "Post",
+                           UpdateTargetId = postId
+                       }
+                       )
+                        </span>
+                    </div>
+        }
+                }                
+            </div>
+        <div class="post" id='@postId'>
+            @Html.Partial("SinglePost", item)
+        </div>
+        
+    }
+    <div id="lastPost">
+        <div class="postHeader">
+            <span>Reply to thread: <em>@Model.Thread.Title</em></span>
+        </div>
+
+        <!-- Reply Form !-->
+        
+        @Html.Partial("PostEditor")      
+        
+        <!-- End Reply Form !-->       
+    </div>
+    <div id="pageNav">    
+        @Html.Partial("PageNavigation", Model)
+    </div>
+     @Html.Hidden(@Model.Thread.ThreadId.ToString(), @Model.Thread.ThreadId, new { id = "threadId" })
+</div>

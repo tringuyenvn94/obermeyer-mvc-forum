@@ -1,0 +1,24 @@
+﻿@model MvcForum.ViewModel.CreateThreadViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Thread: @Model.TheThread.Title</legend>
+
+    <div class="display-label">Thread Started By</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TheThread.ThreadStarter)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to Threads", "Index", new 
+           {
+               id = Model.TheForum.ForumId
+           })
+    </p>
+}

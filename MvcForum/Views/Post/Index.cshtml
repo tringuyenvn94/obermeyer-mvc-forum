@@ -1,0 +1,18 @@
+﻿@model MvcForum.ViewModel.ThreadViewModel
+@{
+    ViewBag.Title = @Model.Thread.Title;
+}
+<h2>
+    @Html.ActionLink("Forums", "Index", "Forum", null, null) >
+    @Html.ActionLink(@Model.Thread.ContainingForum.Title,
+        "Index", "Thread", new { id = @Model.Thread.ContainingForum.ForumId }, null) 
+        > @Model.Thread.Title
+</h2>
+
+<div id="threadMain">
+    <div id="threadTitle">
+        @Model.Thread.Title
+    </div>
+    @Html.Partial("Posts", Model)
+    
+</div>

@@ -1,0 +1,12 @@
+﻿@model MvcForum.ViewModel.ThreadListViewModel
+
+@{
+    ViewBag.Title = @Model.Forum.Title;
+}
+
+<h2>@Html.ActionLink("Forums", "Index", "Forum", null, null) > @Model.Forum.Title</h2>
+
+<div id="threadMain">
+    @Html.Partial("ThreadView", Model)
+</div>
+

@@ -1,0 +1,12 @@
+﻿@model IEnumerable<MvcForum.Models.Forum>
+
+@{
+    ViewBag.Title = "Forums";
+}
+
+<h2>Forums</h2>
+
+<div id="ForumList">
+    @Html.Partial("ForumList", Model)
+</div>
+
